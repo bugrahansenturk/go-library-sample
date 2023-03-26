@@ -15,8 +15,8 @@ func main() {
 	bookRoutes := handlers.BookRoutes()
 	appRouter.RegisterRoutes(bookRoutes)
 
-	//userRoutes := handlers.UserRoutes()
-	//appRouter.RegisterRoutes(userRoutes)
+	userRoutes := handlers.UserRoutes()
+	appRouter.RegisterRoutes(userRoutes)
 
 	borrowRoutes := handlers.BorrowRoutes()
 	appRouter.RegisterRoutes(borrowRoutes)
