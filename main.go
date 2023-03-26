@@ -10,6 +10,7 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
+
 	appRouter := router.NewRouter()
 
 	bookRoutes := handlers.BookRoutes()

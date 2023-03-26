@@ -3,13 +3,14 @@ package domain
 type Role string
 
 const (
-	Admin  Role = "admin"
-	Member Role = "member"
+	Member  Role = "member"
+	Expired Role = "expired"
 )
 
 type User struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Role  Role   `json:"role"`
+	ID        int    `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Role      Role   `json:"role"`
 }

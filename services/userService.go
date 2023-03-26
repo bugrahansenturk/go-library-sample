@@ -18,19 +18,24 @@ func NewUserService() *UserService {
 		users:  make(map[int]domain.User),
 		nextID: 1,
 	}
-
 	// Add initial users
 	service.AddUser(domain.User{
-		Name: "Alice",
-		Role: "member",
+		FirstName: "Alice",
+		LastName:  "Smith",
+		Email:     "alice@example.com",
+		Role:      domain.Member,
 	})
 	service.AddUser(domain.User{
-		Name: "Bob",
-		Role: "member",
+		FirstName: "Bob",
+		LastName:  "Johnson",
+		Email:     "bob@example.com",
+		Role:      domain.Member,
 	})
 	service.AddUser(domain.User{
-		Name: "Charles",
-		Role: "admin",
+		FirstName: "Charlie",
+		LastName:  "Brown",
+		Email:     "charlie@example.com",
+		Role:      domain.Expired,
 	})
 	return service
 }

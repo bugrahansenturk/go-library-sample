@@ -12,7 +12,7 @@ import (
 	"library-sample/services"
 )
 
-var borrowService = services.NewBorrowService()
+var borrowService = services.NewBorrowService(userService)
 
 func listBorrows(w http.ResponseWriter, r *http.Request) {
 	borrows := borrowService.ListBorrows()
