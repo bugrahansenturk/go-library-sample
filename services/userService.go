@@ -14,10 +14,25 @@ type UserService struct {
 }
 
 func NewUserService() *UserService {
-	return &UserService{
+	service := &UserService{
 		users:  make(map[int]domain.User),
 		nextID: 1,
 	}
+
+	// Add initial users
+	service.AddUser(domain.User{
+		Name: "Alice",
+		Role: "member",
+	})
+	service.AddUser(domain.User{
+		Name: "Bob",
+		Role: "member",
+	})
+	service.AddUser(domain.User{
+		Name: "Charles",
+		Role: "admin",
+	})
+	return service
 }
 
 func (s *UserService) ListUsers() []domain.User {

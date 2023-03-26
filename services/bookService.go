@@ -14,10 +14,26 @@ type BookService struct {
 }
 
 func NewBookService() *BookService {
-	return &BookService{
+	service := &BookService{
 		books:  make(map[int]domain.Book),
 		nextID: 1,
 	}
+
+	// Add initial books
+	service.AddBook(domain.Book{
+		Title:  "The Catcher in the Rye",
+		Author: "J.D. Salinger",
+	})
+	service.AddBook(domain.Book{
+		Title:  "To Kill a Mockingbird",
+		Author: "Harper Lee",
+	})
+	service.AddBook(domain.Book{
+		Title:  "1984",
+		Author: "George Orwell",
+	})
+
+	return service
 }
 
 func (s *BookService) ListBooks() []domain.Book {
