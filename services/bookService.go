@@ -36,46 +36,46 @@ func NewBookService() *BookService {
 	return service
 }
 
-func (s *BookService) ListBooks() []domain.Book {
-	books := make([]domain.Book, 0, len(s.books))
-	for _, book := range s.books {
+func (bookService *BookService) ListBooks() []domain.Book {
+	books := make([]domain.Book, 0, len(bookService.books))
+	for _, book := range bookService.books {
 		books = append(books, book)
 	}
 	return books
 }
 
-func (s *BookService) GetBookByID(id int) (domain.Book, error) {
-	book, ok := s.books[id]
+func (bookService *BookService) GetBookByID(id int) (domain.Book, error) {
+	book, ok := bookService.books[id]
 	if !ok {
 		return domain.Book{}, errors.New("book not found")
 	}
 	return book, nil
 }
 
-func (s *BookService) AddBook(book domain.Book) (domain.Book, error) {
-	s.idMutex.Lock()
-	book.ID = s.nextID
-	s.nextID++
-	s.idMutex.Unlock()
+func (bookService *BookService) AddBook(book domain.Book) (domain.Book, error) {
+	bookService.idMutex.Lock()
+	book.ID = bookService.nextID
+	bookService.nextID++
+	bookService.idMutex.Unlock()
 
-	s.books[book.ID] = book
+	bookService.books[book.ID] = book
 	return book, nil
 }
 
-func (s *BookService) UpdateBook(updatedBook domain.Book) error {
-	_, ok := s.books[updatedBook.ID]
+func (bookService *BookService) UpdateBook(updatedBook domain.Book) error {
+	_, ok := bookService.books[updatedBook.ID]
 	if !ok {
 		return errors.New("book not found")
 	}
-	s.books[updatedBook.ID] = updatedBook
+	bookService.books[updatedBook.ID] = updatedBook
 	return nil
 }
 
-func (s *BookService) DeleteBook(id int) error {
-	_, ok := s.books[id]
+func (bookService *BookService) DeleteBook(id int) error {
+	_, ok := bookService.books[id]
 	if !ok {
 		return errors.New("book not found")
 	}
-	delete(s.books, id)
+	delete(bookService.books, id)
 	return nil
 }

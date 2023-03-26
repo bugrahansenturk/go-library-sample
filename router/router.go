@@ -17,23 +17,23 @@ func NewRouter() *Router {
 	return &Router{}
 }
 
-func (r *Router) RegisterRoute(path string, handler http.HandlerFunc) {
+func (router *Router) RegisterRoute(path string, handler http.HandlerFunc) {
 	route := Route{
 		Path:    path,
 		Handler: handler,
 	}
 
-	r.routes = append(r.routes, route)
+	router.routes = append(router.routes, route)
 }
 
-func (r *Router) RegisterRoutes(routes []Route) {
+func (router *Router) RegisterRoutes(routes []Route) {
 	for _, route := range routes {
-		r.RegisterRoute(route.Path, route.Handler)
+		router.RegisterRoute(route.Path, route.Handler)
 	}
 }
 
-func (r *Router) SetupRoutes(mux *http.ServeMux) {
-	for _, route := range r.routes {
+func (router *Router) SetupRoutes(mux *http.ServeMux) {
+	for _, route := range router.routes {
 		mux.HandleFunc(route.Path, route.Handler)
 	}
 }

@@ -26,24 +26,24 @@ func NewBorrowService(userService *UserService) *BorrowService {
 	}
 }
 
-func (s *BorrowService) ListBorrows() []domain.Borrow {
-	borrows := make([]domain.Borrow, 0, len(s.borrows))
-	for _, borrow := range s.borrows {
+func (borrowService *BorrowService) ListBorrows() []domain.Borrow {
+	borrows := make([]domain.Borrow, 0, len(borrowService.borrows))
+	for _, borrow := range borrowService.borrows {
 		borrows = append(borrows, borrow)
 	}
 	return borrows
 }
 
-func (s *BorrowService) GetBorrowByID(id int) (domain.Borrow, error) {
-	borrow, ok := s.borrows[id]
+func (borrowService *BorrowService) GetBorrowByID(id int) (domain.Borrow, error) {
+	borrow, ok := borrowService.borrows[id]
 	if !ok {
 		return domain.Borrow{}, errors.New("borrow not found")
 	}
 	return borrow, nil
 }
 
-func (s *BorrowService) AddBorrow(borrow domain.Borrow) (domain.Borrow, error) {
-	user, err := s.userService.GetUserByID(borrow.UserID)
+func (borrowService *BorrowService) AddBorrow(borrow domain.Borrow) (domain.Borrow, error) {
+	user, err := borrowService.userService.GetUserByID(borrow.UserID)
 	if err != nil {
 		return domain.Borrow{}, errors.New("user not found")
 	}
@@ -52,30 +52,30 @@ func (s *BorrowService) AddBorrow(borrow domain.Borrow) (domain.Borrow, error) {
 		return domain.Borrow{}, errors.New("user membership is expired")
 	}
 
-	s.idMutex.Lock()
-	borrow.ID = s.nextID
-	s.nextID++
-	s.idMutex.Unlock()
+	borrowService.idMutex.Lock()
+	borrow.ID = borrowService.nextID
+	borrowService.nextID++
+	borrowService.idMutex.Unlock()
 
 	borrow.DueDate = time.Now().Add(14 * 24 * time.Hour)
-	s.borrows[borrow.ID] = borrow
+	borrowService.borrows[borrow.ID] = borrow
 	return borrow, nil
 }
 
-func (s *BorrowService) UpdateBorrow(updatedBorrow domain.Borrow) error {
-	_, ok := s.borrows[updatedBorrow.ID]
+func (borrowService *BorrowService) UpdateBorrow(updatedBorrow domain.Borrow) error {
+	_, ok := borrowService.borrows[updatedBorrow.ID]
 	if !ok {
 		return errors.New("borrow not found")
 	}
-	s.borrows[updatedBorrow.ID] = updatedBorrow
+	borrowService.borrows[updatedBorrow.ID] = updatedBorrow
 	return nil
 }
 
-func (s *BorrowService) DeleteBorrow(id int) error {
-	_, ok := s.borrows[id]
+func (borrowService *BorrowService) DeleteBorrow(id int) error {
+	_, ok := borrowService.borrows[id]
 	if !ok {
 		return errors.New("borrow not found")
 	}
-	delete(s.borrows, id)
+	delete(borrowService.borrows, id)
 	return nil
 }

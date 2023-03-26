@@ -2,6 +2,21 @@
 
 This is a simple library REST API implemented in Go. It allows users to manage books and borrows, and supports basic user authentication and role-based access control.
 
+## Technologies Used
+
+- Go (1.16 or later)
+- Go standard library (net/http, encoding/json, etc.)
+
+## Getting Started
+
+To run the Library REST API, follow these steps:
+
+1. Install [Go](https://golang.org/doc/install) (version 1.16 or later).
+2. Clone this repository: `git clone https://github.com/bugrahansenturk/go-library-sample`.
+3. Navigate to the project directory: `cd go-library-sample`.
+4. Run the server: `go run main.go`.
+5. The server should now be running on `localhost:8080`.
+
 ## Data Model
 
 The data model consists of three entities: `Book`, `User`, and `Borrow`.

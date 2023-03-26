@@ -40,46 +40,46 @@ func NewUserService() *UserService {
 	return service
 }
 
-func (s *UserService) ListUsers() []domain.User {
-	users := make([]domain.User, 0, len(s.users))
-	for _, user := range s.users {
+func (userService *UserService) ListUsers() []domain.User {
+	users := make([]domain.User, 0, len(userService.users))
+	for _, user := range userService.users {
 		users = append(users, user)
 	}
 	return users
 }
 
-func (s *UserService) GetUserByID(id int) (domain.User, error) {
-	user, ok := s.users[id]
+func (userService *UserService) GetUserByID(id int) (domain.User, error) {
+	user, ok := userService.users[id]
 	if !ok {
 		return domain.User{}, errors.New("user not found")
 	}
 	return user, nil
 }
 
-func (s *UserService) AddUser(user domain.User) (domain.User, error) {
-	s.idMutex.Lock()
-	user.ID = s.nextID
-	s.nextID++
-	s.idMutex.Unlock()
+func (userService *UserService) AddUser(user domain.User) (domain.User, error) {
+	userService.idMutex.Lock()
+	user.ID = userService.nextID
+	userService.nextID++
+	userService.idMutex.Unlock()
 
-	s.users[user.ID] = user
+	userService.users[user.ID] = user
 	return user, nil
 }
 
-func (s *UserService) UpdateUser(updatedUser domain.User) error {
-	_, ok := s.users[updatedUser.ID]
+func (userService *UserService) UpdateUser(updatedUser domain.User) error {
+	_, ok := userService.users[updatedUser.ID]
 	if !ok {
 		return errors.New("user not found")
 	}
-	s.users[updatedUser.ID] = updatedUser
+	userService.users[updatedUser.ID] = updatedUser
 	return nil
 }
 
-func (s *UserService) DeleteUser(id int) error {
-	_, ok := s.users[id]
+func (userService *UserService) DeleteUser(id int) error {
+	_, ok := userService.users[id]
 	if !ok {
 		return errors.New("user not found")
 	}
-	delete(s.users, id)
+	delete(userService.users, id)
 	return nil
 }
