@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"library-sample/domain"
+	domain "library-sample/domains"
 	"library-sample/router"
 	"library-sample/services"
 )

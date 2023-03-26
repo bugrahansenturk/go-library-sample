@@ -4,7 +4,7 @@ import (
 	"errors"
 	"sync"
 
-	"library-sample/domain"
+	domain "library-sample/domains"
 )
 
 type BookService struct {
